@@ -1,0 +1,33 @@
+﻿@page "/items/search/{SearchTerm:?}"
+@rendermode InteractiveServer
+
+<div class="container-fluid" id="item-search">
+    <div class="col-12 p-2">
+        <div class="row">
+            <div class="col-12">
+                @if (string.IsNullOrWhiteSpace(SearchTerm))
+                {
+                    <ContentHeader Title="Search" />
+                }
+                else
+                {
+                    <ContentHeader Title="@("Search Results for: '" + SearchTerm + "'")" />
+                }
+
+                <div class="search-container mb-2">
+                    <input type="text" class="search-box form-control" placeholder="Search..." @bind-value="Model.OnPageSearchTerm" name="SearchTerm" autocomplete="off" />
+                    <button class="search-icon btn" @onclick="SearchItems"><i class="bi bi-search"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                @if (!string.IsNullOrWhiteSpace(SearchTerm))
+                {
+                    <ItemList SearchTerm="@SearchTerm" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

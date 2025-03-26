@@ -1,0 +1,45 @@
+﻿@page "/collection/create"
+@rendermode InteractiveServer
+
+<PageTitle>New Collection</PageTitle>
+
+<div class="container-fluid">
+    <div class="col-12 p-2">
+        <div class="row">
+            <div class="col-12">
+                <ContentHeader Title="Collection" />
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+            <form method="post" @onsubmit="OnSubmit" @formname="collectionForm">
+                <AntiforgeryToken />
+
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Collection Name</label>
+                            <InputText class="form-control" @bind-Value="Model.Name" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Years of Production</label>
+                            <br />
+                            <InputText class="form-control year-field" @bind-Value="Model.StartYear" /> - to - <InputText class="form-control year-field" @bind-Value="Model.EndYear" />
+                        </div>                        
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <InputTextArea rows="6" class="form-control" @bind-Value="Model.Description" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="save-section">
+                    <input type="submit" class="btn btn-primary" value="Save Collection" />
+                </div>
+            </form>
+        }
+    </div>
+</div>

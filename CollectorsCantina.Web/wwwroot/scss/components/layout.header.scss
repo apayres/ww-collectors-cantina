@@ -1,0 +1,105 @@
+#header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 60px;
+    left: 350px;
+    background: $body-bg-secondary;
+    display: none;
+
+    .search-container {
+        position: relative;
+        float: right;
+        margin-right: 10px;
+        width: 300px;
+
+        .search-box {
+            background: $grey-form-control;
+            border-radius: 8px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+    }
+}
+
+#mobile-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 60px;
+    left: 0;
+    background: $body-bg-secondary;
+    z-index: 15;
+}
+
+#mobile-menu {
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    z-index: 999;
+    background: #000;
+    overflow-x: hidden;
+
+    .nav-link {
+        padding: 10px;
+        border-radius: 8px;
+
+        &:hover {
+            background: $primary-light;
+        }
+    }
+
+    .active {
+        background: $primary;
+    }
+}
+
+#mobile-menu-content {
+    position: absolute;
+    bottom: 60px;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    overflow: auto;
+}
+
+#mobile-menu-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    a {
+        margin: 10px;
+        width: 120px;
+    }
+}
+
+#show-menu{
+    color: $primary-light;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    font-size: 22px; 
+    background: #000;
+}
+
+@include media-breakpoint-up(lg) {
+    #header {
+        display: block;
+    }
+
+    #mobile-header, #mobile-menu {
+        display: none;
+    }
+}

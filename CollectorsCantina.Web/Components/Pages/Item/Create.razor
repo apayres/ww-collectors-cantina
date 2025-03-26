@@ -1,0 +1,87 @@
+﻿@page "/item/create/{collectionId:guid?}"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>New Item</PageTitle>
+<div class="container-fluid">
+    <div class="col-12 p-2">
+        <div class="row">
+            <div class="col-12">
+                <ContentHeader Title="New Item" />
+            </div>
+        </div>
+
+        @if (Model != null)
+        {
+            <form method="post" @onsubmit="OnSubmit" @formname="itemForm">
+                <AntiforgeryToken />
+
+                <div class="row">
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-2">
+                            <label class="form-label">Item Name</label>
+                            <InputText class="form-control" @bind-Value="Model.Name" />
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label">Upc</label>
+                                    <InputText class="form-control" id="upc" @bind-Value="Model.Upc" />
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label">Type</label>
+                                    <InputSelect class="form-select" id="figureType" @bind-Value="Model.Type">
+                                        <option value="ActionFigure">Action Figure</option>
+                                        <option value="Ship">Ship</option>
+                                        <option value="Other">Other</option>
+                                    </InputSelect>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="tags-container">
+                                @if (Model.Tags != null)
+                                {
+                                    foreach (var tag in Model.Tags)
+                                    {
+                                        <span class="tag">
+                                            <span>@tag</span>
+                                            <a class="remove-tag" @onclick="() => RemoveTag(tag)">
+                                                <i class="bi bi-x"></i>
+                                            </a>
+                                        </span>
+                                    }
+                                }
+
+                                <div class="tags-input-container input-group">
+                                    <InputText class="form-control" @bind-Value="Model.NewTag" />
+                                    <button class="btn btn-primary" type="button" @onclick="AddTag">
+                                        <i class="bi bi-plus"></i>
+                                        <span>Tag</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="mb-2">
+                            <label class="form-label">Description</label>
+                            <InputTextArea rows="4" class="form-control" @bind-Value="Model.Description" />
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label">Notes</label>
+                            <InputTextArea rows="4" class="form-control" @bind-Value="Model.Notes" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="save-section">
+                    <input type="hidden" name="VM.CollectionId" @bind="Model.CollectionId" />
+                    <input type="submit" class="btn btn-primary" value="Save Item" />
+                </div>
+            </form>
+        }
+    </div>
+</div>

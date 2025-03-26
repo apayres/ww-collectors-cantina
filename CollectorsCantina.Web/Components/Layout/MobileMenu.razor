@@ -1,0 +1,23 @@
+﻿@using CollectorsCantina.Web.Enums
+@rendermode InteractiveServer
+
+@if (ShowMobileMenu)
+{
+    <div id="mobile-menu">
+        <div id="mobile-menu-content">
+            <CollectionList RenderType="CollectionRenderType.Navigation" />
+        </div>
+
+        <div id="mobile-menu-footer">
+            <a href="/collection/create" class="btn btn-primary">
+                <i class="bi bi-plus"></i>
+                <span>Collection</span>
+            </a>
+
+            <a href="/items/search" class="btn btn-primary">
+                <i class="bi bi-search"></i>
+                <span>Search</span>
+            </a>
+        </div>
+    </div>
+}

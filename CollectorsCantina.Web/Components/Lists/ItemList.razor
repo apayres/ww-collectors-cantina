@@ -1,0 +1,134 @@
+﻿@attribute [StreamRendering]
+
+@if (Model.IsLoading)
+{
+    <Loading />
+}
+else
+{
+    if (Model == null)
+    {
+        <span>No items...</span>
+    }
+    else
+    {
+        <ul class="nav nav-tabs" id="itemsTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="action-figure-tab" data-bs-toggle="tab" data-bs-target="#action-figure-tab-pane" type="button" role="tab" aria-controls="action-figure-tab-pane" aria-selected="true">Action Figures</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ships-tab" data-bs-toggle="tab" data-bs-target="#ships-tab-pane" type="button" role="tab" aria-controls="ships-tab-pane" aria-selected="false">Ships & Vehicles</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="other-tab" data-bs-toggle="tab" data-bs-target="#other-tab-pane" type="button" role="tab" aria-controls="other-tab-pane" aria-selected="false">Other</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="itemsTabContent">
+            <div class="tab-pane fade show active" id="action-figure-tab-pane" role="tabpanel" aria-labelledby="action-figure-tab" tabindex="0">
+                
+                @if (Model.ActionFigures == null || !Model.ActionFigures.Any())
+                {
+                    <div class="mt-2">No action figures here...</div>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="d-none d-lg-table-cell">Upc</th>
+                                <th colspan="2">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ActionFigures)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td class="d-none d-lg-table-cell">@item.Upc</td>
+                                    <td>@item.Description</td>
+                                    <td class="text-end">
+                                        <a href="item/index/@item.ItemId" class="btn btn-primary btn-sm round-action-button">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="tab-pane fade" id="ships-tab-pane" role="tabpanel" aria-labelledby="ships-tab" tabindex="0">
+                
+                @if (Model.ShipsAndVehicles == null || !Model.ShipsAndVehicles.Any())
+                {
+                    <div class="mt-2">No ships or vehicles here...</div>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="d-none d-lg-table-cell">Upc</th>
+                                <th colspan="2">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.ShipsAndVehicles)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td class="d-none d-lg-table-cell">@item.Upc</td>
+                                    <td>@item.Description</td>
+                                    <td class="text-end">
+                                        <a href="item/index/@item.ItemId" class="btn btn-primary btn-sm round-action-button">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="tab-pane fade" id="other-tab-pane" role="tabpanel" aria-labelledby="other-tab" tabindex="0">
+
+                @if (Model.Other == null || !Model.Other.Any())
+                {
+                    <div class="mt-2">No other items here...</div>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th class="d-none d-lg-table-cell">Upc</th>
+                                <th colspan="2">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Other)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td class="d-none d-lg-table-cell">@item.Upc</td>
+                                    <td>@item.Description</td>
+                                    <td class="text-end">
+                                        <a href="item/index/@item.ItemId" class="btn btn-primary btn-sm round-action-button">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+        </div>
+    }
+}

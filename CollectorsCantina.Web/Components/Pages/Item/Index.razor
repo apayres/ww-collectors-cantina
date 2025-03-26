@@ -1,0 +1,273 @@
+﻿@page "/item/index/{Id:guid?}"
+@rendermode InteractiveServer
+
+<PageTitle>@Model.Name</PageTitle>
+
+<div class="container-fluid">
+    @if (Model.IsLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="col-12 p-2">
+
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <ContentHeader Title="@Model.Name" />
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label class="small-label">Upc</label>
+                                <div>@Model.Upc</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small-label">Figure Type</label>
+                                <div>@Model.Type</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small-label">Tags</label>
+                                <br />
+                                @if (Model.Tags != null)
+                                {
+                                    foreach (var tag in Model.Tags)
+                                    {
+                                        <span class="tag">@tag</span>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="mb-3">
+                                <label class="small-label">Description</label>
+                                <div>@Model.Description</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small-label">Notes</label>
+                                <div>@Model.Notes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    @if (Model.Images != null)
+                    {
+                        for (var i = 0; i < Model.Images.Count(); i++)
+                        {
+                            <div id="@(i == 0 ? "main-item-image" : "")" class="item-image mb-3" style="background-image: url('@Model.Images[i]')" data-bs-toggle="modal" data-bs-target="#imageViewerModal">
+                            </div>
+                        }
+                    }
+
+                    <div class="save-section">
+                        <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi bi-trash"></i>
+                        </a>
+
+                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="#" class="btn btn-primary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
+                            <i class="bi bi-upload"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="modal fade" id="imageViewerModal" tabindex="-1" aria-labelledby="imageViewerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Item Images</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        @{
+                            if (Model.Images != null)
+                            {
+                                bool setActive = true;
+                                foreach (var img in Model.Images)
+                                {
+                                    <div class="carousel-item @(setActive ? "active" : "")">
+                                        <img src="@img" class="d-block w-100">
+                                        <div class="btn delete-image-button-container">
+                                            <button class="btn delete-image-button" @onclick="(() => DeleteImage(img))">
+                                                <i class="bi bi-trash" />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    setActive = false;
+                                }
+                            }
+                        }
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form method="post" @onsubmit="UploadImages" @formname="uploadItemImageForm">
+    <div class="modal fade" id="imageUploadModal" tabindex="-1" aria-labelledby="imageUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="imageUploadModal">Manage Images</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="formFile" class="input-group-text">Choose Images</label>
+                        <InputFile OnChange="LoadFile" multiple id="formFile" class="form-control" accept="application/png,application/jpeg,application/jpg" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" @onsubmit="SaveItem" @formname="editItemForm">
+    <div class="modal fade" id="editDetailsModal" tabindex="-1" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editDetailsModal">Item Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label">Item Name</label>
+                                <InputText class="form-control" @bind-Value="Model.Name" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Upc</label>
+                                <InputText class="form-control" @bind-Value="Model.Upc" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Type</label>
+                                <InputSelect class="form-select" id="figureType" @bind-Value="Model.Type">
+                                    <option value="ActionFigure">Action Figure</option>
+                                    <option value="Ship">Ship</option>
+                                    <option value="Other">Other</option>
+                                </InputSelect>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <InputTextArea rows="4" class="form-control" @bind-Value="Model.Description" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Notes</label>
+                                <InputTextArea rows="4" class="form-control" @bind-Value="Model.Notes" />
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="tags-container">
+                                    @if (Model.Tags != null)
+                                    {
+                                        foreach (var tag in Model.Tags)
+                                        {
+                                            <span class="tag">
+                                                <span>@tag</span>
+                                                <a class="remove-tag" @onclick="() => RemoveTag(tag)">
+                                                    <i class="bi bi-x"></i>
+                                                </a>
+                                            </span>
+                                        }
+                                    }
+
+                                    <div class="tags-input-container input-group">
+                                        <InputText class="form-control" @bind-Value="Model.NewTag" />
+                                        <button class="btn btn-primary" type="button" @onclick="AddTag">
+                                            <i class="bi bi-plus"></i>
+                                            <span>Tag</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" @onsubmit="DeleteItem" @formname="deleteItemForm">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalModal">Delete Item</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this item?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (Model.SaveComplete)
+{
+    <script>
+        var editDetailsModal = document.getElementById('editDetailsModal');
+        bootstrap.Modal.getInstance(editDetailsModal).hide();
+    </script>
+}
+
+@if (Model.UploadComplete)
+{
+    <script>
+        var imageUploadModal = document.getElementById('imageUploadModal');
+        bootstrap.Modal.getInstance(imageUploadModal).hide();
+    </script>
+}
+
+@if (Model.DeleteImageComplete)
+{
+    <script>
+        var imageViewerModal = document.getElementById('imageViewerModal');
+        bootstrap.Modal.getInstance(imageViewerModal).hide();
+    </script>
+}

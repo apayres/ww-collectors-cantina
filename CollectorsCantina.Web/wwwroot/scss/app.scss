@@ -1,0 +1,21 @@
+// VARIABLES //////////////
+///////////////////////////
+@import "variables.scss";
+
+// BOOTSTRAP FOUNDATION ///
+///////////////////////////
+@import "../lib/bootstrap/scss/bootstrap.scss";
+
+// BOOTSTRAP OVERRIDES ////
+///////////////////////////
+@import "bootstrap-overrides.scss";
+
+// PARTIALS////////////////
+///////////////////////////
+@import "components/layout.header.scss";
+@import "components/layout.mainlayout.scss";
+@import "components/layout.sidebar.scss";
+@import "components/pages.collection.scss";
+@import "components/pages.item.scss";
+@import "components/shared.applogo.scss";
+@import "components/shared.contentheader.scss";

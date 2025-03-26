@@ -1,0 +1,18 @@
+.year-field {
+    width: 100px;
+    display: inline;
+}
+
+.collection-image {
+    width: 100%;
+    background: #000;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 8px;
+    position: relative;
+
+    img{
+        width: 100%;
+    }
+}

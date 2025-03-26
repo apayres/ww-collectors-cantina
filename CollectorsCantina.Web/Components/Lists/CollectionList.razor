@@ -1,0 +1,42 @@
+﻿@using CollectorsCantina.Web.Enums
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@if (Model.IsLoading)
+{
+    <Loading />
+}
+else
+{
+    if (RenderType == CollectionRenderType.Table)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var collection in Model.Collections)
+                {
+                    <tr>
+                        <td>@collection.Name</td>
+                        <td>@collection.Description</td>
+                        <td><a href="collection/index/@collection.CollectionId">link</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else if (RenderType == CollectionRenderType.Navigation)
+    {
+        foreach (var collection in Model.Collections)
+        {
+            <div class="nav-item">
+                <a class="nav-link @(collection.CollectionId == Model.SelectedCollectionId ? "active" : "")" href="collection/index/@collection.CollectionId">
+                    @collection.Name
+                </a>
+            </div>
+        }
+    }
+}

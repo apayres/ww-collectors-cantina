@@ -1,0 +1,32 @@
+﻿@rendermode InteractiveServer
+
+@using CollectorsCantina.Web.Enums;
+@{
+    var alertClass = string.Empty;
+    switch (MessageType)
+    {
+        case MessageType.Success:
+            alertClass = "alert-success";
+            break;
+        case MessageType.Warning:
+            alertClass = "alert-warning";
+            break;
+        case MessageType.Error:
+            alertClass = "alert-danger";
+            break;
+        default:
+            alertClass = "alert-info";
+            break;
+    }
+}
+
+@if (!string.IsNullOrWhiteSpace(Message))
+{
+    <div class="container-fluid">
+        <div class="col-12 p-2">
+            <div class="alert @alertClass">
+                <span>@Message</span>
+            </div>
+        </div>
+    </div>
+}

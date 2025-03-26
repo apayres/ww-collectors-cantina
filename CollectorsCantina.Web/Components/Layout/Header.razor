@@ -1,0 +1,26 @@
+﻿@using CollectorsCantina.Web.Enums;
+@rendermode InteractiveServer
+
+<div id="header">
+        
+    <div class="search-container mt-3">
+        <form method="post" @onsubmit="Search" autocomplete="off">
+        <input type="text" class="search-box form-control" placeholder="Search..." @bind-value="SearchTerm" name="SearchTerm" autocomplete="off" />
+        <button type="submit" class="search-icon btn"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+
+    <a href="/collection/create" class="btn btn-outline-primary me-3 float-end mt-3">
+        <i class="bi bi-plus-lg"></i> Collection
+    </a>
+</div>
+
+<div id="mobile-header">
+    <AppLogo />
+
+    <button class="btn" id="show-menu" @onclick="ShowMenu">
+        <i class="bi bi-list"></i>
+    </button>
+</div>
+
+<MobileMenu />

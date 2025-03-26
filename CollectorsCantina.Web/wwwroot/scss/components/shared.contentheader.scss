@@ -1,0 +1,27 @@
+.content-header {
+    position: relative;
+    background: $grey-content-header-bg;
+    padding: 15px;
+    padding-left: 45px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    line-height: 36px;
+    border-radius: 8px;
+
+    .content-header-preface {
+        color: #58A266;
+        font-size: 26px;
+        position: absolute;
+        left: 15px;
+        top: 15px;
+    }
+
+    .content-divit {
+        border: solid 10px $grey-content-header-bg;
+        border-bottom-color: $body-bg;
+        width: 100px;
+        position: absolute;
+        bottom: 0;
+        right: 25px;
+    }
+}

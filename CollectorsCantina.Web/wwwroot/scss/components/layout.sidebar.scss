@@ -1,0 +1,43 @@
+#sidebar, #sidebar-background {
+    display: none;
+    font-size: 13px;
+}
+
+@include media-breakpoint-up(lg) {
+    #sidebar {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 350px;
+    }
+
+    #sidebar-background {
+        display: block;
+        background: $sidebar-background;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 350px;
+        box-shadow: 0 0 5px #000;
+    }
+}
+
+#collection-list-container {
+    margin: 10px;
+    margin-top: 90px;
+
+    .nav-link {
+        padding: 10px;
+        border-radius: 8px;
+
+        &:hover {
+            background: $primary-light;
+        }
+    }
+
+    .active {
+        background: $primary;
+    }
+}

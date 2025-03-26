@@ -1,0 +1,24 @@
+#main-content {
+    margin-top: 70px;
+}
+
+@include media-breakpoint-up(lg) {
+    #main-content {
+        margin-left: 350px;
+    }
+}
+
+.save-section{
+    border-top: solid 1px $primary;
+    text-align: right;
+    padding-top: 15px;
+}
+
+.small-label {
+    font-size: 11px;
+    color: $grey-label-color;
+}
+
+.round-action-button {
+    border-radius: 300px;
+}

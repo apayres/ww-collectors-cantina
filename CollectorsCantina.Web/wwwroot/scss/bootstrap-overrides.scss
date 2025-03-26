@@ -1,0 +1,36 @@
+
+// BOOTSTRAP OVERRIDES ////
+///////////////////////////
+
+.modal-header {
+    background-color: $primary;
+    color: white;
+}
+
+.form-control, .form-select {
+    background: $grey-form-control;
+    border-color: #282A2C;
+}
+
+input[type=file]::file-selector-button {
+    display: none;
+}
+
+.input-group-text{
+    background: #000;
+    border-color: $primary;
+}
+
+.table {
+    td {
+        color: $body-color;
+    }
+
+    th{
+        color: $body-color;
+    }
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: $primary-light;
+}

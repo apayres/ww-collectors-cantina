@@ -1,0 +1,59 @@
+.header-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 60px;
+    line-height: 50px;
+    padding-left: 15px;
+    width: 320px;
+    color: #fff;
+    border-bottom: solid 1px $primary-light;
+
+    .circle-one {
+        background: $primary;
+        height: 25px;
+        width: 25px;
+        border-radius: 300px;
+        margin: 10px 0 0 10px;
+    }
+
+    .circle-two {
+        background: $primary-light;
+        height: 18px;
+        width: 18px;
+        border-radius: 300px;
+        margin-left: 35px;
+        margin-top: -3px;
+    }
+
+    .header-text {
+        font-family: "Goldman", serif;
+        position: absolute;
+        font-size: 20px;
+        top: 0;
+        left: 90px;
+    }
+}
+
+@include media-breakpoint-up(lg) {  
+
+    .header-icon {
+        height: 70px;
+        line-height: 60px;
+        padding-left: 15px;
+
+        .circle-one {
+            height: 30px;
+            width: 30px;
+        }
+
+        .circle-two {
+            height: 20px;
+            width: 20px;
+        }
+
+        .header-text {
+            font-size: 22px;
+        }
+    }
+}

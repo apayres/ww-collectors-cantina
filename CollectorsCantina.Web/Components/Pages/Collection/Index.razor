@@ -1,0 +1,173 @@
+﻿@page "/collection/index/{Id:guid}"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>@Model.Name</PageTitle>
+
+<div class="container-fluid">
+    @if (Model.IsLoading)
+    {
+        <Loading />
+    }
+    else
+    {
+        <div class="col-12 p-2">
+
+            <div class="row">
+                <div class="col-12 col-lg-8 order-2 order-lg-1">
+                    <ContentHeader Title="Items" />
+
+                    @if (Model.CollectionId.HasValue)
+                    {
+                        <ItemList CollectionId="@Model.CollectionId" />
+                    }
+                </div>
+
+                <div class="col-12 col-lg-4 order-1 order-lg-2">
+                    <div class="collection-image mb-3">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <img src="@Model.ImageUrl" title="collection image" />
+                        }
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="small-label">Collection Name</label>
+                        <div>@Model.Name</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="small-label">Produced</label>
+                        <div>@Model.StartYear - to - @(string.IsNullOrEmpty(Model.EndYear) ? "Current" : Model.EndYear)</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="small-label">Description</label>
+                        <div>@Model.Description</div>
+                    </div>
+
+                    <div class="save-section mb-2">
+                        <button href="#" class="btn btn-primary round-action-button mb-2" @onclick="SetFavorite">
+                            @if (Model.IsFavorite)
+                            {
+                                <i class="bi bi-heart-fill"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-heart"></i>
+                            }
+
+                        </button>
+                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="/item/create/@Model.CollectionId" class="btn btn-primary round-action-button mb-2">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
+                            <i class="bi bi-upload"></i>
+                        </a>
+                        <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<form method="post" @onsubmit="DeleteCollection" @formname="deleteCollectionForm">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteModalModal">Delete Collection</h1>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this collection?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" @onsubmit="UploadImage" @formname="uploadCollectorsImageForm">
+    <div class="modal fade" id="imageUploadModal" tabindex="-1" aria-labelledby="imageUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="imageUploadModal">Upload Image</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="formFile" class="input-group-text">Choose Image</label>
+                        <InputFile OnChange="LoadFile" id="formFile" class="form-control" accept="application/png,application/jpeg,application/jpg" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" @onsubmit="SaveCollection" @formname="editCollectionForm"> 
+    <div class="modal fade" id="editDetailsModal" tabindex="-1" aria-labelledby="editDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editDetailsModal">Collection Details</h1>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Collection Name</label>
+                        <InputText class="form-control" @bind-Value="Model.Name" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Years of Production</label>
+                        <br />
+                        <InputText class="form-control year-field" @bind-Value="Model.StartYear" /> - to - <InputText class="form-control year-field" @bind-Value="Model.EndYear" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <InputTextArea rows="6" class="form-control" @bind-Value="Model.Description" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@if (Model.SaveComplete)
+{
+    <script>
+        var editDetailsModal = document.getElementById('editDetailsModal');
+        bootstrap.Modal.getInstance(editDetailsModal).hide();
+    </script>
+}
+
+@if (Model.UploadComplete)
+{
+    <script>
+        var imageUploadModal = document.getElementById('imageUploadModal');
+        bootstrap.Modal.getInstance(imageUploadModal).hide();
+    </script>
+}
+
+@if (Model.DeleteComplete)
+{
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        bootstrap.Modal.getInstance(deleteModal).hide();
+    </script>
+}
