@@ -2,17 +2,36 @@
 @rendermode InteractiveServer
 
 <div id="header">
-        
+    
+
+    <AuthorizeView Roles="Administrator">
+        <Authorized>
+            <a href="/account/logout" class="btn me-3 float-end mt-3" title="Logout">
+                <i class="bi bi-box-arrow-in-right"></i>
+            </a>
+        </Authorized>
+        <NotAuthorized>
+            <a href="/account/login" class="btn me-3 float-end mt-3" title="Login">
+                <i class="bi bi-person-circle"></i>
+            </a>
+        </NotAuthorized>
+    </AuthorizeView>
+
+    <AuthorizeView Roles="Administrator">
+        <Authorized>
+            <a href="/collection/create" class="btn float-end mt-3" title="Create Collection">
+                <i class="bi bi-plus-circle"></i>
+            </a>
+        </Authorized>
+    </AuthorizeView>
+
     <div class="search-container mt-3">
         <form method="post" @onsubmit="Search" autocomplete="off">
-        <input type="text" class="search-box form-control" placeholder="Search..." @bind-value="SearchTerm" name="SearchTerm" autocomplete="off" />
-        <button type="submit" class="search-icon btn"><i class="bi bi-search"></i></button>
+            <input type="text" class="search-box form-control" placeholder="Search..." @bind-value="SearchTerm" name="SearchTerm" autocomplete="off" />
+            <button type="submit" class="search-icon btn"><i class="bi bi-search"></i></button>
         </form>
     </div>
 
-    <a href="/collection/create" class="btn btn-outline-primary me-3 float-end mt-3">
-        <i class="bi bi-plus-lg"></i> Collection
-    </a>
 </div>
 
 <div id="mobile-header">

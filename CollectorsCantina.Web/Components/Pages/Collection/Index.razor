@@ -45,31 +45,35 @@
                         <div>@Model.Description</div>
                     </div>
 
-                    <div class="save-section mb-2">
-                        <button href="#" class="btn btn-primary round-action-button mb-2" @onclick="SetFavorite">
-                            @if (Model.IsFavorite)
-                            {
-                                <i class="bi bi-heart-fill"></i>
-                            }
-                            else
-                            {
-                                <i class="bi bi-heart"></i>
-                            }
+                    <AuthorizeView Roles="Administrator">
+                        <Authorized>
+                            <div class="save-section mb-2">
+                                <button href="#" class="btn btn-primary round-action-button mb-2" @onclick="SetFavorite">
+                                    @if (Model.IsFavorite)
+                                    {
+                                        <i class="bi bi-heart-fill"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="bi bi-heart"></i>
+                                    }
 
-                        </button>
-                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="/item/create/@Model.CollectionId" class="btn btn-primary round-action-button mb-2">
-                            <i class="bi bi-plus-lg"></i>
-                        </a>
-                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
-                            <i class="bi bi-upload"></i>
-                        </a>
-                        <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </div>
+                                </button>
+                                <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="/item/create/@Model.CollectionId" class="btn btn-primary round-action-button mb-2">
+                                    <i class="bi bi-plus-lg"></i>
+                                </a>
+                                <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
+                                    <i class="bi bi-upload"></i>
+                                </a>
+                                <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
                 </div>
             </div>
         </div>

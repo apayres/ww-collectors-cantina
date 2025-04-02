@@ -22,15 +22,38 @@ input[type=file]::file-selector-button {
 }
 
 .table {
+    tr {
+        border-color: $grey-border;
+    }
+
     td {
         color: $body-color;
     }
 
-    th{
+    th {
         color: $body-color;
     }
 }
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
     color: $primary-light;
+}
+
+.nav-tabs {
+    border-color: $grey-border;
+
+    .nav-link.active {
+        border-left-color: $grey-border;
+        border-right-color: $grey-border;
+        border-top-color: $grey-border;
+    }
+
+    .nav-link:hover {
+        border-color: $grey-border;
+    }
+}
+
+.card {
+    background: $body-bg-secondary;
+    box-shadow: 0 0 5px #000;
 }

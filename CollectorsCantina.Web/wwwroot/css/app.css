@@ -11863,6 +11863,9 @@ input[type=file]::file-selector-button {
   border-color: #316f3d;
 }
 
+.table tr {
+  border-color: #444;
+}
 .table td {
   color: #e2e2e2;
 }
@@ -11874,13 +11877,29 @@ input[type=file]::file-selector-button {
   color: #58A266;
 }
 
+.nav-tabs {
+  border-color: #444;
+}
+.nav-tabs .nav-link.active {
+  border-left-color: #444;
+  border-right-color: #444;
+  border-top-color: #444;
+}
+.nav-tabs .nav-link:hover {
+  border-color: #444;
+}
+
+.card {
+  background: #1a1a1a;
+  box-shadow: 0 0 5px #000;
+}
+
 #header {
   position: absolute;
   top: 0;
   right: 0;
   height: 60px;
   left: 350px;
-  background: #1a1a1a;
   display: none;
 }
 #header .search-container {
@@ -11997,7 +12016,6 @@ input[type=file]::file-selector-button {
 
 #sidebar, #sidebar-background {
   display: none;
-  font-size: 13px;
 }
 
 @media (min-width: 992px) {

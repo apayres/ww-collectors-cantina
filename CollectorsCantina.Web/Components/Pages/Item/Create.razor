@@ -1,4 +1,5 @@
 ﻿@page "/item/create/{collectionId:guid?}"
+@attribute [Authorize(Roles = "Administrator")]
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <PageTitle>New Item</PageTitle>

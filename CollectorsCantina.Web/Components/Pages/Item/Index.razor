@@ -62,19 +62,22 @@
                             </div>
                         }
                     }
+                    <AuthorizeView Roles="Administrator">
+                        <Authorized>
+                            <div class="save-section">
+                                <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <i class="bi bi-trash"></i>
+                                </a>
 
-                    <div class="save-section">
-                        <a href="#" class="btn btn-danger round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="bi bi-trash"></i>
-                        </a>
-
-                        <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="#" class="btn btn-primary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
-                            <i class="bi bi-upload"></i>
-                        </a>
-                    </div>
+                                <a href="#" class="btn btn-secondary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#editDetailsModal">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="#" class="btn btn-primary round-action-button mb-2" data-bs-toggle="modal" data-bs-target="#imageUploadModal">
+                                    <i class="bi bi-upload"></i>
+                                </a>
+                            </div>
+                        </Authorized>
+                    </AuthorizeView>
                 </div>
             </div>
         </div>

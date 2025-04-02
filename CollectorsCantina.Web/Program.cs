@@ -3,11 +3,23 @@ using CollectorsCantina.Web.Helpers;
 using CollectorsCantina.Web.Services.Collections;
 using CollectorsCantina.Web.Services.Items;
 using CollectorsCantina.Web.State;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opt =>
+    {
+        opt.Cookie.Name = "CC_AUTH";
+        opt.LoginPath = "/account/login";
+        opt.Cookie.MaxAge = TimeSpan.FromMinutes(120);
+    });
+
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
 
 var apiUrl = builder.Configuration["ApiClientUrl"];
 builder.Services.AddHttpClient("CollectorsCantinaApi", client =>
@@ -37,6 +49,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();

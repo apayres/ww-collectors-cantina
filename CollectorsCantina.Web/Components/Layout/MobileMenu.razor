@@ -9,10 +9,27 @@
         </div>
 
         <div id="mobile-menu-footer">
-            <a href="/collection/create" class="btn btn-primary">
-                <i class="bi bi-plus"></i>
-                <span>Collection</span>
-            </a>
+            <AuthorizeView Roles="Administrator">
+                <Authorized>
+                    <a href="/account/logout" class="btn btn-primary" title="Logout">
+                        <i class="bi bi-box-arrow-in-right"></i> Logout
+                    </a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/account/login" class="btn btn-primary" title="Login">
+                        <i class="bi bi-person-circle"></i> Login
+                    </a>
+                </NotAuthorized>
+            </AuthorizeView>
+
+            <AuthorizeView Roles="Administrator">
+                <Authorized>
+                    <a href="/collection/create" class="btn btn-primary">
+                        <i class="bi bi-plus"></i>
+                        <span>Collection</span>
+                    </a>
+                </Authorized>
+            </AuthorizeView>
 
             <a href="/items/search" class="btn btn-primary">
                 <i class="bi bi-search"></i>
