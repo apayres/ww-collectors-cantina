@@ -39,6 +39,8 @@ namespace CollectorsCantina.Web.Components.Pages.Item
         {
             _state.HandlePageInitialize();
             Model = await _service.LoadModel(Id);
+
+            _state.CollectionListState.SetSelectedCollectionId(Model.CollectionId);
             Model.IsLoading = false;
         }
 
@@ -57,6 +59,7 @@ namespace CollectorsCantina.Web.Components.Pages.Item
             {
                 Model = await _service.ProcessModel(Model, ProcessModelAction.Update);
                 Model.SaveComplete = true;
+                Model.IsLoading = false;
             }
             catch (Exception ex)
             {
@@ -69,6 +72,8 @@ namespace CollectorsCantina.Web.Components.Pages.Item
             try
             {
                 await _service.ProcessModel(Model, ProcessModelAction.Delete);
+                Model.DeleteComplete = true;
+
                 _navigationManager.NavigateTo("/collection/index/" + Model.CollectionId);
             }
             catch (Exception ex)

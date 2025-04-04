@@ -18,5 +18,7 @@ namespace CollectorsCantina.Domain.Entities
         public string ImageUrl { get; set; } = string.Empty;
 
         public bool IsFavorite { get; set; } = false;
+
+        public string Notes { get; set; } = string.Empty;
     }
 }

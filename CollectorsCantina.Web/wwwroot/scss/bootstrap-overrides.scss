@@ -54,6 +54,10 @@ input[type=file]::file-selector-button {
 }
 
 .card {
-    background: $body-bg-secondary;
-    box-shadow: 0 0 5px #000;
+    background: $grey-content-header-bg;
+
+    a:link, a:hover {
+        text-decoration: none;
+        color: $body-color;
+    }
 }

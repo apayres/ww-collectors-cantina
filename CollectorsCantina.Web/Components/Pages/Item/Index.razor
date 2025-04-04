@@ -41,6 +41,11 @@
                         </div>
                         <div class="col-8">
                             <div class="mb-3">
+                                <label class="small-label">No.</label>
+                                <div>@Model.Number</div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="small-label">Description</label>
                                 <div>@Model.Description</div>
                             </div>
@@ -171,6 +176,11 @@
                             </div>
 
                             <div class="mb-3">
+                                <label class="form-label">No.</label>
+                                <InputText class="form-control" @bind-Value="Model.Number" />
+                            </div>
+
+                            <div class="mb-3">
                                 <label class="form-label">Upc</label>
                                 <InputText class="form-control" @bind-Value="Model.Upc" />
                             </div>
@@ -272,5 +282,13 @@
     <script>
         var imageViewerModal = document.getElementById('imageViewerModal');
         bootstrap.Modal.getInstance(imageViewerModal).hide();
+    </script>
+}
+
+@if (Model.DeleteComplete)
+{
+    <script>
+        var deleteModal = document.getElementById('deleteModal');
+        bootstrap.Modal.getInstance(deleteModal).hide();
     </script>
 }

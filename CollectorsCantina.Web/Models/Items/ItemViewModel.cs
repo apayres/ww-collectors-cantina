@@ -20,6 +20,8 @@ namespace CollectorsCantina.Web.Models.Items
 
         public List<string>? Tags { get; set; } = new List<string>();
 
+        public string Number { get; set; } = string.Empty;
+
         public string NewTag { set; get; } = string.Empty;
 
         public List<string>? Images { get; set; } = new List<string>();

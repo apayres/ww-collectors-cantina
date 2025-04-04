@@ -17,7 +17,8 @@ namespace CollectorsCantina.Web.Services.Items
                 Notes = item.Notes,
                 Tags = item.Tags,
                 Type = item.Type,
-                Upc = item.Upc
+                Upc = item.Upc,
+                Number = item.Number
             };
 
             return model;
@@ -55,7 +56,8 @@ namespace CollectorsCantina.Web.Services.Items
                 Notes = model.Notes,
                 Upc = model.Upc,
                 Attributes = new List<ItemAttributes>(),
-                Images = images
+                Images = images,
+                Number = model.Number
             };
 
             return entity;

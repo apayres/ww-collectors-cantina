@@ -8,6 +8,9 @@ namespace CollectorsCantina.Web.Components.Pages.Account
 {
     public partial class Login
     {
+
+        #region Private Variables
+
         [SupplyParameterFromForm]
         private string Username { set; get; }
 
@@ -15,6 +18,10 @@ namespace CollectorsCantina.Web.Components.Pages.Account
         private string Password { set; get; }
 
         private string ErrorMessage { set; get; }
+
+        #endregion
+
+        #region Dependency Injection
 
         [CascadingParameter]
         public HttpContext _httpContext { set; get; }
@@ -25,6 +32,8 @@ namespace CollectorsCantina.Web.Components.Pages.Account
         [Inject]
         public IConfiguration _configuration { set; get; }
 
+        #endregion
+
         #region Lifecycle Methods
 
         protected override async Task OnInitializedAsync()
@@ -33,6 +42,8 @@ namespace CollectorsCantina.Web.Components.Pages.Account
         }
 
         #endregion
+
+        #region Local Methods & Events
 
         protected async Task OnSubmit()
         {
@@ -58,5 +69,7 @@ namespace CollectorsCantina.Web.Components.Pages.Account
                 ErrorMessage = "Sorry, invalid credentials!";
             }
         }
+
+        #endregion
     }
 }

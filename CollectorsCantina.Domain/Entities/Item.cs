@@ -26,5 +26,7 @@ namespace CollectorsCantina.Domain.Entities
         public List<ItemAttributes>? Attributes { get; set; }
 
         public List<string>? Tags { get; set; }
+
+        public string Number { get; set; } = string.Empty;
     }
 }

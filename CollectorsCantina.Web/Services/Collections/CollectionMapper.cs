@@ -15,7 +15,8 @@ namespace CollectorsCantina.Web.Services.Collections
                 ImageUrl = entity.ImageUrl,
                 Name = entity.Name,
                 IsFavorite = entity.IsFavorite,
-                StartYear = entity.StartYear.ToString()
+                StartYear = entity.StartYear.ToString(),
+                Notes = entity.Notes
             };
         }
 
@@ -34,7 +35,8 @@ namespace CollectorsCantina.Web.Services.Collections
                 ImageUrl = model.ImageUrl,
                 CollectionId = model.CollectionId,
                 IsFavorite = model.IsFavorite,
-                Description = model.Description
+                Description = model.Description,
+                Notes = model.Notes
             };
         }
     }

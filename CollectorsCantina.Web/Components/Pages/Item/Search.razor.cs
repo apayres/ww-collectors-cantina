@@ -30,6 +30,7 @@ namespace CollectorsCantina.Web.Components.Pages.Item
         protected override async Task OnInitializedAsync()
         {
             _state.HandlePageInitialize();
+            _state.CollectionListState.ClearSelectedCollectionId();
         }
 
         #endregion

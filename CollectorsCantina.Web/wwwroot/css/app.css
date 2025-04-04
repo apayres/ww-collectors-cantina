@@ -11890,8 +11890,11 @@ input[type=file]::file-selector-button {
 }
 
 .card {
-  background: #1a1a1a;
-  box-shadow: 0 0 5px #000;
+  background: #1D1E1F;
+}
+.card a:link, .card a:hover {
+  text-decoration: none;
+  color: #e2e2e2;
 }
 
 #header {
@@ -12050,6 +12053,15 @@ input[type=file]::file-selector-button {
 }
 #collection-list-container .active {
   background: #316f3d;
+}
+
+.card-indent {
+  position: absolute;
+  border: solid 10px #1D1E1F;
+  border-bottom-color: #131313;
+  width: 100px;
+  bottom: 0;
+  right: 25px;
 }
 
 .year-field {

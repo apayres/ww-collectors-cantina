@@ -2,35 +2,34 @@
 
 @if (Model.IsLoading)
 {
-    <Loading />
+        <Loading />
 }
 else
 {
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
             @if (Model.Collections == null || !Model.Collections.Any())
             {
-                <p>Your favorite collections will appear here.</p>
+                        <p>Your favorite collections will appear here.</p>
             }
             else
             {
                 foreach (var collection in Model.Collections)
                 {
-                    <div class="col-12 col-lg-4">
-                        <div class="card mb-4">
-                            <img src="@collection.ImageUrl" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">@collection.Name</h5>
-                                <p class="card-text">@collection.Description</p>
-                                <a href="/collection/index/@collection.CollectionId" class="btn btn-primary">
-                                    <span>View Collection</span>
-                                    <i class="bi bi-chevron-right ms-1"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                                            <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="card mb-4">
+                                                        <a href="/collection/index/@collection.CollectionId">
+                                        <img src="@collection.ImageUrl" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">@collection.Name</h5>
+                                            <p class="card-text">@collection.Description</p>
+                                        </div>
+                                                    <div class="card-indent"></div>
+                                                </a>
+                                    </div>
+                                </div>
                 }
             }
+            </div>
         </div>
-    </div>
 }

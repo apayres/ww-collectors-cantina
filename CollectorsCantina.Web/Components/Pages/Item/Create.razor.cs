@@ -38,6 +38,8 @@ namespace CollectorsCantina.Web.Components.Pages.Item
 
             Model = await _service.LoadModel(null);
             Model.CollectionId = CollectionId;
+
+            _state.CollectionListState.SetSelectedCollectionId(Model.CollectionId);
         }
 
         #endregion
